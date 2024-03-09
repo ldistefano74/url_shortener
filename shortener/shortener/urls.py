@@ -1,7 +1,8 @@
-
-from django.contrib import admin
 from django.urls import include, path
+from . import views
 
 urlpatterns = [
-    path('', include('storage.urls'))
+    path('store/', views.store),
+    path('redirect', views.redirect_id),
+    path('statistics', views.stats),
 ]

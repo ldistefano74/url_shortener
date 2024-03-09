@@ -1,12 +1,12 @@
 from django.http import JsonResponse, HttpRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
 @csrf_exempt
 def store(request: HttpRequest):
     # TODO: validate
-    ret = {"Status":"Error"}
+    ret = {"Status": "Error"}
     status = 400
 
     if request.method == "POST":
@@ -19,15 +19,15 @@ def store(request: HttpRequest):
 
 
 def redirect_id(request):
-    id = request.GET.get("id")
-    target_url = settings.URL_STORAGE.get_redirect_url(id)
+    url_id = request.GET.get("id")
+    target_url = settings.URL_STORAGE.get_redirect_url(url_id)
     if not target_url:
-        return JsonResponse({"error": f"invalid id {id}"})
+        return JsonResponse({"error": f"invalid id {url_id}"})
 
     return redirect(target_url)
 
 
 def stats(request: HttpRequest):
-    stats = settings.URL_STORAGE.get_statistics()
+    stats_result = settings.URL_STORAGE.get_statistics()
 
-    return JsonResponse({"Statistics": stats})
+    return JsonResponse({"Statistics": stats_result})
